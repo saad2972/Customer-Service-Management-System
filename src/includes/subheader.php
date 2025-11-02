@@ -1,12 +1,19 @@
-<?php if (!isset($_SESSION['user']) || $_SESSION['user']['role'] == 'user'): ?>
+<?php 
+// Only show subheader on index.php
+$current_page = basename($_SERVER['PHP_SELF']);
+if ($current_page === 'index.php'): 
+?>
     <nav class="subheader">
         <div class="subheader-links">
-            <a href="index.php">Home</a>
-            <a href="services.php">Services</a>
-            <a href="user/create_ticket.php">Book Service</a>
-            <a href="user/my_services.php">My Services</a>
+            <a href="#home">Home</a>
+            <a href="#services">Services</a>
+            <a href="#about">About Us</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#contact">Contact</a>
+            <?php if (!isset($_SESSION['user'])): ?>
+                <a href="register.php">Get Started</a>
+            <?php endif; ?>
         </div>
     </nav>
-    <hr>
 <?php endif; ?>
 

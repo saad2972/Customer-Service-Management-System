@@ -48,7 +48,7 @@ CREATE TABLE tickets (
     description TEXT,
     price DECIMAL(10,2) NOT NULL,
     image VARCHAR(255),
-    status ENUM('Pending', 'In Progress', 'Completed', 'Closed') DEFAULT 'Pending',
+    status ENUM('Pending', 'In Progress', 'Resolved', 'Cancelled') DEFAULT 'Pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
@@ -121,7 +121,7 @@ VALUES ('Test', 'User', 'user@techfix.com', MD5('user123'), 'user');
 -- ==========================================================
 INSERT INTO tickets (user_id, category, type, description, price, status)
 VALUES 
-(2, 'Hardware', 'Upgrade (RAM & SSD)', 'Upgrade laptop RAM and SSD for performance.', 150.00, 'Completed'),
+(2, 'Hardware', 'Upgrade (RAM & SSD)', 'Upgrade laptop RAM and SSD for performance.', 150.00, 'Resolved'),
 (2, 'Software', 'Windows Key', 'Need Windows 11 activation.', 80.00, 'Pending');
 
 -- ==========================================================

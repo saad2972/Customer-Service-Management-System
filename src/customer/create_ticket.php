@@ -1,7 +1,6 @@
 <?php
 include("../includes/auth.php");
 include("../includes/db_connect.php");
-include("sidebar.php"); // Uses customer sidebar
 
 $message = "";
 
@@ -63,17 +62,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Service - TechFix</title>
-    <link rel="stylesheet" href="../css/style.css">
-</head>
-<body>
-    <?php include("../includes/header.php"); ?>
-    <?php include("../includes/subheader.php"); ?>
+<?php
+// Standardized head + header
+$page_title = 'Book Service - TechFix';
+include("../includes/head.php");
+include("../includes/header.php");
+include("../includes/subheader.php");
+?>
+
+    <?php include("sidebar.php"); ?>
 
     <div class="main-content">
         <h1>Book a Service</h1>

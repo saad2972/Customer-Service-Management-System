@@ -3,23 +3,14 @@ $require_admin = true;
 
 include("../includes/auth.php");
 include("../includes/db_connect.php");
+// Standardized head + header
+include("../includes/head.php");
 include("../includes/header.php");
-include("sidebar.php");
 
 // Get all users from database
 $result = mysqli_query($conn, "SELECT * FROM users ORDER BY created_at DESC");
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Users - TechFix</title>
-    <link rel="stylesheet" href="../css/style.css">
-</head>
-<body>
-    <?php include("../includes/header.php"); ?>
     <?php include("sidebar.php"); ?>
 
     <div class="main-content">

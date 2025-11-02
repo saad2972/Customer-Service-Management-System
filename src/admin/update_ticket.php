@@ -35,7 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
-
+<head>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
 <div class="main-content">
     <div class="page-header">
         <h1>Update Ticket</h1>
@@ -87,7 +89,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 </div>
 
-<?php 
-mysqli_close($conn);
-include("../includes/footer.php"); 
-?>
+<div>
+    <?php
+    mysqli_close($conn);
+    include("../includes/footer.php"); 
+    ?>
+</div>
+ 

@@ -1,21 +1,17 @@
+session_start();
 <?php
 include("includes/db_connect.php");
 session_start();
+
+// Standardized head + header
+$page_title = 'TechFix - Home';
+include('includes/head.php');
 ?>
-
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>TechFix - Home</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-
-  <!-- Header Include -->
-  <?php include("includes/header.php"); 
-  include('includes/subheader.php'); 
-  ?>
+<body class="landing-page">
+<?php
+include('includes/header.php');
+include('includes/subheader.php');
+?>
 
 <!-- Hero Section -->
 <section class="hero">
@@ -170,5 +166,6 @@ session_start();
     </div>
 </section>
 
+<?php include('includes/footer.php'); ?>
 </body>
 </html>

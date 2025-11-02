@@ -2,64 +2,64 @@
 $require_admin = true;
 
 // Database connection
-require_once '../includes/db_connect.php'; // Adjust path as needed
-// OR if config.php is not available, create connection directly:
-// $com = mysqli_connect("localhost", "username", "password", "database_name");
+require_once '../includes/db_connect.php';
+require_once '../includes/auth.php';
 
-// Check connection
-if (!$conn) {
-    die("Database connection failed: " . mysqli_connect_error());
-}
+// Get report data
+$total_tickets = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS total FROM tickets"))['total'];
+$resolved_tickets = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS total FROM tickets WHERE status = 'resolved'"))['total'];
+$pending_tickets = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS total FROM tickets WHERE status = 'pending'"))['total'];
+$total_revenue = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(price) AS total FROM tickets"))['total'] ?: 0;
 
-// Get total tickets count
-$total_tickets_result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM tickets");
-$total_tickets_data = mysqli_fetch_assoc($total_tickets_result);
-$total_tickets = $total_tickets_data['total'];
-
-// Get resolved tickets count
-$resolved_tickets_result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM tickets WHERE status = 'resolved'");
-$resolved_tickets_data = mysqli_fetch_assoc($resolved_tickets_result);
-$resolved_tickets = $resolved_tickets_data['total'];
-
-// Get pending tickets count
-$pending_tickets_result = mysqli_query($conn, "SELECT COUNT(*) AS total FROM tickets WHERE status = 'pending'");
-$pending_tickets_data = mysqli_fetch_assoc($pending_tickets_result);
-$pending_tickets = $pending_tickets_data['total'];
-
-// Get total revenue
-$total_revenue_result = mysqli_query($conn, "SELECT SUM(price) AS total FROM tickets");
-$total_revenue_data = mysqli_fetch_assoc($total_revenue_result);
-$total_revenue = $total_revenue_data['total'] ?: 0;
+// Standardized head + header
+$page_title = 'Reports - TechFix';
+include('../includes/head.php');
+include('../includes/header.php');
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Reports</title>
-</head>
-<body>
-    <h1>Reports</h1>
-    <p>Automatic performance and billing report.</p>
-    
-    <div>
-        <strong>Total Tickets:</strong>
-        <?php echo $total_tickets; ?>
+    <?php include('sidebar.php'); ?>
+
+    <div class="dashboard-wrapper">
+        <div class="main-content">
+            <div class="page-header">
+                <h1>Reports</h1>
+                <p>Automatic performance and billing report.</p>
+            </div>
+
+            <div class="cards">
+                <div class="card">
+                    <div class="card-icon">🎫</div>
+                    <div class="card-content">
+                        <h3>Total Tickets</h3>
+                        <p class="card-number"><?php echo $total_tickets; ?></p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">✅</div>
+                    <div class="card-content">
+                        <h3>Resolved</h3>
+                        <p class="card-number"><?php echo $resolved_tickets; ?></p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">⏳</div>
+                    <div class="card-content">
+                        <h3>Pending</h3>
+                        <p class="card-number"><?php echo $pending_tickets; ?></p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">💰</div>
+                    <div class="card-content">
+                        <h3>Total Revenue</h3>
+                        <p class="card-number">$<?php echo number_format($total_revenue, 2); ?></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    
-    <div>
-        <strong>Resolved:</strong>
-        <?php echo $resolved_tickets; ?>
-    </div>
-    
-    <div>
-        <strong>Pending:</strong>
-        <?php echo $pending_tickets; ?>
-    </div>
-    
-    <div>
-        <strong>Total Revenue: $</strong>
-        <?php echo number_format($total_revenue, 2); ?>
-    </div>
-</body>
-</html>
+
+    <?php include('../includes/footer.php'); ?>
