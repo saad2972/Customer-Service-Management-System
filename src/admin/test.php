@@ -1,5 +1,7 @@
 <!-- <?php
 // Optional: include authentication and database if needed
+// This changes is only made for puling 
+
 include("../includes/auth.php");
 include("../includes/db_connect.php");
 ?>
